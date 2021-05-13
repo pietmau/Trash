@@ -49,10 +49,10 @@ class BST<T : Comparable<T>> {
         if (currentNode.data == value) {
             remove(currentNode, parentNode)
         }
-        if (currentNode.data > value && parentNode.left != null) {
+        if (currentNode.data > value && currentNode.left != null) {
             scan(value, currentNode.left!!, currentNode)
         }
-        if (currentNode.data < value && parentNode.right != null) {
+        if (currentNode.data < value && currentNode.right != null) {
             scan(value, currentNode.right!!, currentNode)
         }
     }
@@ -60,10 +60,29 @@ class BST<T : Comparable<T>> {
     private fun remove(node: Node<T>, parentNode: Node<T>) {
         if (node.left == null && node.right == null) {
             removeSingle(parentNode, node)
+            return
         }
         if ((node.left == null && node.right != null) || (node.right == null && node.left != null)) {
             removeWithOneChild(parentNode, node)
+            return
         }
+        removeWithTwoChildern(parentNode, node)
+    }
+
+    private fun removeWithTwoChildern(parentNode: Node<T>, currentNode: Node<T>) {
+        val node = getReplacementNode(currentNode.left!!)
+        currentNode.data = node.data
+        currentNode.left = node.left
+        currentNode.right = node.right
+    }
+
+    private fun getReplacementNode(currentNode: Node<T>): Node<T> {
+        if (currentNode.right?.right == null) {
+            val result = currentNode.right!!
+            currentNode.right = null
+            return result
+        }
+        return getReplacementNode(currentNode.right!!)
     }
 
     private fun removeWithOneChild(parentNode: Node<T>, node: Node<T>) {
@@ -94,7 +113,7 @@ class BST<T : Comparable<T>> {
 }
 
 data class Node<T : Comparable<T>>(
-    val data: T,
+    var data: T,
     var left: Node<T>? = null,
     var right: Node<T>? = null
 )

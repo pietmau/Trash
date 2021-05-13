@@ -29,6 +29,13 @@ class Test {
         assertThat(bst.contains(15)).isFalse()
     }
 
+    @Test
+    fun remove_twoworks() {
+        val bst = createBst()
+        bst.remove(20)
+        assertThat(bst.contains(20)).isFalse()
+    }
+
     private fun createBst(): BST<Int> {
         val bst = BST<Int>()
         bst.add(10)
