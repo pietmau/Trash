@@ -4,7 +4,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 
-class Test {
+class BstTest {
 
     @Test
     fun add_add_works() {
@@ -13,6 +13,7 @@ class Test {
         assertThat(bst.contains(10)).isTrue()
         assertThat(bst.contains(5)).isTrue()
         assertThat(bst.contains(20)).isTrue()
+        assertThat(bst.contains(15)).isTrue()
     }
 
     @Test
@@ -20,6 +21,11 @@ class Test {
         val bst = createBst()
         bst.remove(27)
         assertThat(bst.contains(27)).isFalse()
+        assertThat(bst.contains(10)).isTrue()
+        assertThat(bst.contains(5)).isTrue()
+        assertThat(bst.contains(20)).isTrue()
+        assertThat(bst.contains(15)).isTrue()
+
     }
 
     @Test
@@ -27,6 +33,10 @@ class Test {
         val bst = createBst()
         bst.remove(15)
         assertThat(bst.contains(15)).isFalse()
+        assertThat(bst.contains(27)).isTrue()
+        assertThat(bst.contains(10)).isTrue()
+        assertThat(bst.contains(5)).isTrue()
+        assertThat(bst.contains(20)).isTrue()
     }
 
     @Test
@@ -34,6 +44,23 @@ class Test {
         val bst = createBst()
         bst.remove(20)
         assertThat(bst.contains(20)).isFalse()
+        assertThat(bst.contains(27)).isTrue()
+        assertThat(bst.contains(10)).isTrue()
+        assertThat(bst.contains(5)).isTrue()
+        assertThat(bst.contains(15)).isTrue()
+
+    }
+
+    @Test
+    fun remove_twotwoworks() {
+        val bst = createBst()
+        bst.remove(5)
+        assertThat(bst.contains(27)).isTrue()
+        assertThat(bst.contains(10)).isTrue()
+        assertThat(bst.contains(5)).isFalse()
+        assertThat(bst.contains(20)).isTrue()
+        assertThat(bst.contains(15)).isTrue()
+
     }
 
     private fun createBst(): BST<Int> {

@@ -70,19 +70,19 @@ class BST<T : Comparable<T>> {
     }
 
     private fun removeWithTwoChildern(parentNode: Node<T>, currentNode: Node<T>) {
-        val node = getReplacementNode(currentNode.left!!)
+        val node = getReplacementNode(currentNode.right!!)
         currentNode.data = node.data
-        currentNode.left = node.left
+        node.left = currentNode.right
         currentNode.right = node.right
     }
 
     private fun getReplacementNode(currentNode: Node<T>): Node<T> {
-        if (currentNode.right?.right == null) {
-            val result = currentNode.right!!
-            currentNode.right = null
+        if (currentNode.left == null) {
+            val result = currentNode
+            currentNode.left = result.right
             return result
         }
-        return getReplacementNode(currentNode.right!!)
+        return getReplacementNode(currentNode.left!!)
     }
 
     private fun removeWithOneChild(parentNode: Node<T>, node: Node<T>) {
